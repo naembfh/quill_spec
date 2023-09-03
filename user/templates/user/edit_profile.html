@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Edit Profile</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ user_form.non_field_errors }}
+                        <div class="mb-3">
+                            <label for="{{ user_form.username.id_for_label }}" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="{{ user_form.username.id_for_label }}" name="{{ user_form.username.name }}" value="{{ user_form.username.value }}" readonly>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ user_form.first_name.label_tag }}
+                            {{ user_form.first_name }}
+                        </div>
+                        <div class="mb-3">
+                            {{ user_form.last_name.label_tag }}
+                            {{ user_form.last_name }}
+                        </div>
+                        <div class="mb-3">
+                            {{ user_form.email.label_tag }}
+                            {{ user_form.email }}
+                        </div>
+                        <div class="mb-3">
+                            {{ profile_form.phone_no.label_tag }}
+                            {{ profile_form.phone_no }}
+                        </div>
+                        <input type="hidden" name="user_profile-user_type" value="{{ request.user.user_profile.user_type }}">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

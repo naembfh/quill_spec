@@ -1,0 +1,95 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center p-2 rounded">
+                {% for category in page_categories %}
+                    <a href="{% url 'category_page' category.id %}">
+                        <button class="btn btn-light btn-sm rounded-pill ml-2 mr-2 {% if forloop.counter <= 5 %}first-five{% endif %}">
+                            {{ category.name }}
+                        </button>
+                    </a>
+                {% endfor %}
+
+                {% if page_categories.has_previous %}
+                    <a class="extrabtn btn btn-light btn-sm rounded-pill ml-2 mr-2" href="?page=1">First</a>
+                    <a class="extrabtn btn btn-light btn-sm rounded-pill ml-2 mr-2" href="?page={{ page_categories.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                {% if page_categories.has_next %}
+                    <a class="extrabtn btn btn-light btn-sm ml-2 mr-2 {% if not page_categories.has_previous %}rounded-pill{% endif %}" href="?page={{ page_categories.next_page_number }}">Next</a>
+                    <a class="extrabtn btn btn-light btn-sm ml-2 mr-2 {% if not page_categories.has_previous %}rounded-pill{% endif %}" href="?page={{ page_categories.paginator.num_pages }}">Last</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    {% for category_data in top_two_article_each_category %}
+        <h2 class="text-center extrabtn smaller-text">
+            <a href="{% url 'category_page' category_data.category.id %}" class="btn btn-light btn-m rounded-pill yellow-button" style="text-decoration: none; color: #6c757d;">
+                {{ category_data.category }}
+            </a>
+        </h2>
+        <div class="row justify-content-center">
+            {% if category_data.articles %}
+                {% for article in category_data.articles %}
+                    <div class="col-md-4 mb-4">
+                        <a href="{% url 'article_detail' article.id %}" class="card-link">
+                            <div class="card">
+                                <img src="{{ article.image.url }}" class="card-img-top" alt="Article Image" style="max-height: 100px;">
+                                <div class="card-body">
+                                    <h6 class="card-title" style="color: #6c757d;">{{ article.headline }}</h6>
+                                    <p class="card-text" style="color: #6c757d;">{{ article.body|slice:"50" }}</p>
+                                    <div class="text-right">
+                                        <a href="{% url 'article_detail' article.id %}" class="btn btn-light btn-sm rounded-pill yellow-button">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12 text-center">
+                    <p style="color: #6c757d;">No articles available in this category.</p>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    .first-five {
+        background-color: #ffc107;
+        color: #6c757d; 
+    }
+
+    .extrabtn {
+        background: none;
+        border: none;
+        color: #6c757d; 
+    }
+
+    .smaller-text {
+        font-size: 18px; 
+        border-radius: 10px; 
+        display: inline-block; 
+        padding: 5px 15px; 
+    }
+
+    .extrabtn a {
+        text-decoration: none;
+        color: #6c757d; 
+    }
+
+    .yellow-button {
+        background-color: #ffc107;
+        border: none;
+        color: #212529;
+    }
+</style>
+{% endblock content %}
+
+

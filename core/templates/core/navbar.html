@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <a class="navbar-brand" href="{% url 'home' %}">QuillSpectrum</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+             
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'edit_profile' %}">
+                        <button class="btn btn-light btn-sm rounded-pill mr-2">Profile</button>
+                    </a>
+                </li>
+                {% if request.user.user_profile.user_type == 'editor' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'editor_dashboard' %}">
+                        <button class="btn btn-light btn-sm rounded-pill mr-2">Editor Dashboard</button>
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        <button class="btn btn-light btn-sm rounded-pill mr-2">Logout</button>
+                    </a>
+                </li>
+             
+            {% else %}
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <button class="btn btn-light btn-sm rounded-pill mr-2">Login</button>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registration' %}">
+                        <button class="btn btn-light btn-sm rounded-pill mr-2">Register</button>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+
+
+  

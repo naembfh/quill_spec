@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h2>Delete Article</h2>
+  <p>Are you sure you want to delete '{{ article.headline }}' article?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete Article</button>
+  </form>
+  <a href="{% url 'editor_dashboard' %}">Cancel</a>
+{% endblock %}

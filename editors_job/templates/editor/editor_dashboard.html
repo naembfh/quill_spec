@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h2>Editor Dashboard</h2>
+  
+  <a href="{% url 'create_article' %}" class="btn btn-primary">Create New Article</a>
+  
+  <ul>
+    {% for article in articles %}
+      <li>
+        {{ article.headline }}
+        <a href="{% url 'edit_article' article.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'delete_article' article.id %}" class="btn btn-danger">Delete</a>
+      </li>
+    {% empty %}
+      <p>No articles available.</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'create_editor' %}" class="btn btn-primary">Create New Editor</a>
+  <br>
+  <a href="{% url 'editor_dashboard' %}">Back to Dashboard</a>
+{% endblock %}
