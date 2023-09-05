@@ -1,34 +1,36 @@
-<h2>All Users</h2>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>User Type</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.user_profile.user_type }}</td>
-                <td>
-                    {% if request.user.user_profile.user_type == 'editor' %}
-                   {% if user.user_profile.user_type == 'Subscriber' %}
-                   <form method="post" action="{% url 'make_editor' user.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to make this user an editor?')">Make Editor</button>
-                </form>
-                     
-                   {% endif %}
-                   {% endif %}
-                   
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% extends "core/base.html" %}
 
-      
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-secondary">All Users</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-secondary">Username</th>
+                <th class="text-secondary">Email</th>
+                <th class="text-secondary">User Type</th>
+                <th class="text-secondary">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.user_profile.user_type }}</td>
+                    <td>
+                        {% if request.user.user_profile.user_type == 'editor' %}
+                            {% if user.user_profile.user_type == 'Subscriber' %}
+                                <form method="post" action="{% url 'make_editor' user.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-warning rounded" onclick="return confirm('Are you sure you want to make this user an editor?')">Make Editor</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

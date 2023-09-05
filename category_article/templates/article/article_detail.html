@@ -2,76 +2,113 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title">{{ article.headline }}</h1>
-            <p class="card-text">{{ article.body }}</p>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-5">
-    <h2>Related Articles in {{ category.name }}</h2>
     <div class="row">
-        {% if related_articles %}
-            {% for related_article in related_articles %}
-                <div class="col-md-6 mb-4">
-                    <div class="card">
+        <div class="col-md-9 mb-4">
+            <div class="card shadow rounded">
+                <div class="card-body">
+                    <h1 class="card-title" style="font-size: 24px;">
+                        <span style="border-bottom: 2px solid yellow; color: #6c757d;">{{ article.headline }}</span>
+                    </h1>
+                    <p class="card-text text-secondary">{{ article.body }}</p>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <h2 class="text-secondary" style="border-bottom: 2px solid yellow;">Ratings and Comments</h2>
+                <p class="text-secondary">Average Rating: {{ article.ratings }}</p>
+
+                {% if user.is_authenticated %}
+                <form method="post" class="mt-3">
+                    {% csrf_token %}
+                    
+                    {{ rating_form.rating.label_tag }}
+                    <br>
+                    {{ rating_form.rating }}
+                    <br>
+                    {{ rating_form.rating.errors }}
+                    <br>
+                    
+                    {{ rating_form.comment.label_tag }}
+                    <br>
+                    {{ rating_form.comment }}
+                    <br>
+                    {{ rating_form.comment.errors }}
+                    <br>
+                    
+                    <button type="submit" class="btn btn-warning btn-sm rounded-pill shadow">Submit</button>
+                </form>
+                {% else %}
+                <p class="text-secondary">You must be <a href="{% url 'login' %}" style="color: #ffc107;">logged in</a> to submit a rating or comment.</p>
+                {% endif %}
+            </div>
+
+            <div class="container mt-5">
+                <h2 class="text-secondary" style="border-bottom: 2px solid yellow;">Comments</h2>
+                <div class="comments-container" style="display: flex; flex-direction: column; gap: 15px;">
+                    {% for comment in article.rating_comment_set.all %}
+                    <div class="card shadow rounded">
                         <div class="card-body">
-                            <h3 class="card-title">{{ related_article.headline }}</h3>
-                            <a href="{% url 'article_detail' related_article.id %}" class="btn btn-primary">Read More</a>
+                            <h5 class="card-title text-secondary">
+                                <span style="border-bottom: 2px solid yellow;">{{ comment.user.username }}</span>
+                            </h5>
+                            <p class="card-text text-secondary">{{ comment.comment }}</p>
+                            <p class="card-text text-secondary comment-rating" style="border-bottom: 2px solid yellow;">Rating: {{ comment.rating }}</p>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>No related articles available.</p>
-        {% endif %}
-    </div>
-</div>
-
-<div class="container mt-5">
-    <h2>Ratings and Comments</h2>
-    <p>Average Rating: {{ article.ratings }}</p>
-
-    {% if user.is_authenticated %}
-    <form method="post" class="mt-3">
-        {% csrf_token %}
-        
-        {{ form.errors }}
-        
-        <div class="form-group">
-            {{ rating_form.rating.label_tag }}
-            {{ rating_form.rating }}
-            {{ rating_form.rating.errors }}
+            </div>
         </div>
-    
-        <div class="form-group">
-            {{ rating_form.comment.label_tag }}
-            {{ rating_form.comment }}
-            {{ rating_form.comment.errors }}
-        </div>
-    
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    {% else %}
-    <p>You must be <a href="{% url 'login' %}">logged in</a> to submit a rating or comment.</p>
-    {% endif %}
-</div>
 
-<div class="container mt-5">
-    <h2>Comments</h2>
-
-    {% for comment in article.rating_comment_set.all %}
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title text-secondary">{{ comment.user.username }}</h5>
-            <p class="card-text text-secondary">{{ comment.comment }}</p>
-            <p class="card-text text-secondary">Rating: {{ comment.rating }}</p>
+        <div class="col-md-3">
+            <div class="container mt-5">
+                <h3 class="text-secondary" style="border-bottom: 2px solid yellow;">Related Articles in this category</h3>
+                {% if related_articles %}
+                {% for related_article in related_articles %}
+                <div class="card mt-3 shadow rounded">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{% url 'article_detail' related_article.id %}" style="text-decoration: none; border-bottom: 2px solid yellow; color: #6c757d;">{{ related_article.headline }}</a>
+                        </h4>
+                        <a href="{% url 'article_detail' related_article.id %}" class="btn btn-warning btn-sm rounded-pill shadow">Read More</a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="text-secondary">No related articles available.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
-    {% endfor %}
 </div>
 
-</div>
+<style>
+    /* Your custom CSS styles can go here */
+
+    /* Style for yellow underline */
+    .yellow-underline {
+        border-bottom: 2px solid yellow;
+    }
+
+    /* Style for card text */
+    .card-text-secondary {
+        color: #6c757d;
+    }
+
+    /* Style for comment ratings */
+    .comment-rating {
+        border-bottom: 2px solid yellow;
+    }
+
+    /* Style for form inputs */
+    .form-control {
+        border-radius: 20px;
+    }
+
+    /* Style for rounded buttons */
+    .rounded-pill {
+        border-radius: 50px;
+    }
+</style>
+
 {% endblock content %}

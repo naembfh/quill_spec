@@ -1,36 +1,41 @@
-{% extends 'core/base.html' %}
-
-
-
+{% extends "core/base.html" %}
 
 {% block content %}
 <div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h2 class="text-center mb-4">Register</h2>
-      <form method="post" class="needs-validation" novalidate style="max-width: 400px; margin: 0 auto;">
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-          <div class="alert alert-danger">
-            {% for error in form.non_field_errors %}
-              {{ error }}
-            {% endfor %}
-          </div>
-        {% endif %}
-        {% for field in form.visible_fields %}
-          <div class="mb-3">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}" name="{{ field.name }}" required>
-            {% for error in field.errors %}
-              <div class="invalid-feedback">
-                {{ error }}
-              </div>
-            {% endfor %}
-          </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
-      </form>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow rounded">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">
+                        <span style="border-bottom: 2px solid yellow;">Register</span>
+                    </h2>
+                    <form method="post" class="needs-validation" novalidate style="max-width: 400px; margin: 0 auto;">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% for field in form.visible_fields %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label text-secondary">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}" class="form-control rounded" id="{{ field.id_for_label }}" name="{{ field.name }}" required>
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-warning btn-block rounded">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

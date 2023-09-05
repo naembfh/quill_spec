@@ -4,36 +4,38 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card shadow rounded">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Edit Profile</h2>
+                    <h2 class="card-title text-center mb-4">
+                        <span style="border-bottom: 2px solid yellow;">Edit Profile</span>
+                    </h2>
                     <form method="post">
                         {% csrf_token %}
                         {{ user_form.non_field_errors }}
                         <div class="mb-3">
-                            <label for="{{ user_form.username.id_for_label }}" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="{{ user_form.username.id_for_label }}" name="{{ user_form.username.name }}" value="{{ user_form.username.value }}" readonly>
+                            <label for="{{ user_form.username.id_for_label }}" class="form-label text-secondary">Username</label>
+                            <input type="text" class="form-control rounded" id="{{ user_form.username.id_for_label }}" name="{{ user_form.username.name }}" value="{{ user_form.username.value }}" readonly>
                         </div>
                         
                         <div class="mb-3">
-                            {{ user_form.first_name.label_tag }}
-                            {{ user_form.first_name }}
+                            <label for="{{ user_form.first_name.id_for_label }}" class="form-label text-secondary">First Name</label>
+                            <input type="text" class="form-control rounded" id="{{ user_form.first_name.id_for_label }}" name="{{ user_form.first_name.name }}" value="{{ user_form.first_name.value }}">
                         </div>
                         <div class="mb-3">
-                            {{ user_form.last_name.label_tag }}
-                            {{ user_form.last_name }}
+                            <label for="{{ user_form.last_name.id_for_label }}" class="form-label text-secondary">Last Name</label>
+                            <input type="text" class="form-control rounded" id="{{ user_form.last_name.id_for_label }}" name="{{ user_form.last_name.name }}" value="{{ user_form.last_name.value }}">
                         </div>
                         <div class="mb-3">
-                            {{ user_form.email.label_tag }}
-                            {{ user_form.email }}
+                            <label for="{{ user_form.email.id_for_label }}" class="form-label text-secondary">Email</label>
+                            <input type="email" class="form-control rounded" id="{{ user_form.email.id_for_label }}" name="{{ user_form.email.name }}" value="{{ user_form.email.value }}">
                         </div>
                         <div class="mb-3">
-                            {{ profile_form.phone_no.label_tag }}
-                            {{ profile_form.phone_no }}
+                            <label for="{{ profile_form.phone_no.id_for_label }}" class="form-label text-secondary">Phone No</label>
+                            <input type="text" class="form-control rounded" id="{{ profile_form.phone_no.id_for_label }}" name="{{ profile_form.phone_no.name }}" value="{{ profile_form.phone_no.value }}">
                         </div>
                         <input type="hidden" name="user_profile-user_type" value="{{ request.user.user_profile.user_type }}">
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-warning rounded">Save</button>
                         </div>
                     </form>
                 </div>
@@ -42,6 +44,3 @@
     </div>
 </div>
 {% endblock %}
-
-
-

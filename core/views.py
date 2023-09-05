@@ -2,6 +2,7 @@ from django.shortcuts import render
 from category_article.models import Category,Article
 from django.core.paginator import Paginator
 # Create your views here.
+
 def home(request):
     categories = Category.objects.order_by('name') 
     # print(categories)

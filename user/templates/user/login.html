@@ -4,24 +4,32 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="text-center mb-4">Login</h2>
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+            <div class="card shadow rounded">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">
+                        <span style="border-bottom: 2px solid yellow;">Login</span>
+                    </h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label text-secondary">Username</label>
+                            <input type="text" class="form-control rounded" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label text-secondary">Password</label>
+                            <input type="password" class="form-control rounded" id="password" name="password" required>
+                        </div>
+                        {% if error_message %}
+                        <div class="alert alert-danger">
+                            {{ error_message }}
+                        </div>
+                        {% endif %}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-warning btn-block rounded">Login</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                {% if error_message %}
-                <div class="alert alert-danger">
-                    {{ error_message }}
-                </div>
-                {% endif %}
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>

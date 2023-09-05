@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-    <a class="navbar-brand" href="{% url 'home' %}">QuillSpectrum</a>
+<nav class="navbar navbar-expand-lg navbar-dark font-italic bg-secondary">
+    <a class="navbar-brand" href="{% url 'home' %} " class=""><h3>QuillSpectrum</h3></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,19 +9,19 @@
              
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'edit_profile' %}">
-                        <button class="btn btn-light btn-sm rounded-pill mr-2">Profile</button>
+                        <button class="btn btn-light btn-sm rounded-pill shadow mr-2">Profile</button>
                     </a>
                 </li>
                 {% if request.user.user_profile.user_type == 'editor' %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'editor_dashboard' %}">
-                        <button class="btn btn-light btn-sm rounded-pill mr-2">Editor Dashboard</button>
+                        <button class="btn shadow btn-light btn-sm rounded-pill mr-2">Editor Dashboard</button>
                     </a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
                     <a href="{% url 'logout' %}" class="nav-link">
-                        <button class="btn btn-light btn-sm rounded-pill mr-2">Logout</button>
+                        <button class="btn btn-light shadow btn-sm rounded-pill mr-2">Logout</button>
                     </a>
                 </li>
              
@@ -29,12 +29,12 @@
                
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">
-                        <button class="btn btn-light btn-sm rounded-pill mr-2">Login</button>
+                        <button class="btn btn-light shadow btn-sm rounded-pill mr-2">Login</button>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'registration' %}">
-                        <button class="btn btn-light btn-sm rounded-pill mr-2">Register</button>
+                        <button class="btn btn-light shadow btn-sm rounded-pill mr-2">Register</button>
                     </a>
                 </li>
             {% endif %}

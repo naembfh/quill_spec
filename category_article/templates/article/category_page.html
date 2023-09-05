@@ -2,20 +2,28 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>{{ category.name }} Articles</h1>
+    <h1 class="text-secondary mb-4">
+        <span style="border-bottom: 2px solid yellow;">{{ category.name }} Articles</span>
+    </h1>
     <div class="row">
-        {% for article in articles %}
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'article_detail' article.id %}" class="text-decoration-none">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ article.headline }}</h2>
-                        <p class="card-text">{{ article.body|slice:":150" }}</p>
-                    </div>
+        {% if articles %}
+            {% for article in articles %}
+                <div class="col-md-4 mb-4">
+                    <a href="{% url 'article_detail' article.id %}" class="text-decoration-none">
+                        <div class="card h-100 shadow">
+                            <div class="card-body">
+                                <h2 class="card-title text-secondary">{{ article.headline }}</h2>
+                                <p class="card-text text-secondary">{{ article.body|slice:":150" }}</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12 mb-4">
+                <p class="text-secondary">No articles for this category.</p>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
